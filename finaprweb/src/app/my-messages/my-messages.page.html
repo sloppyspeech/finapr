@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        My Message
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+    <!-- <ion-item>
+        <div class="ion-activatable">
+            A plain div with an unbounded ripple effect
+            <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+          </div>
+    </ion-item> -->
+    <ion-list *ngFor="let msg of messageList">
+        <ion-item>
+          <ion-label>
+            <ion-badge *ngIf="msg.Read=='N'" color="primary">New Message</ion-badge>
+            <p>{{msg.RecipientName}} - {{msg.RecipientMobileNo}} (Apartment : {{msg.RecipientApartment}})</p>
+            <h2>{{msg.Message}}</h2>
+            <p>{{msg.Date|date:'mediumDate'}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+</ion-content>

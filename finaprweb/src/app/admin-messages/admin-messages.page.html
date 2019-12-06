@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Send Message
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+    <form [formGroup]="sendMessageFormGroup">
+      <ion-list>
+        <ion-item class="ion-no-padding">
+          <ion-select interface="popover" (ionChange)="populateFields($event)" placeholder="Apartment Number" formControlName="fctl_apart_no">
+              <ion-select-option  *ngFor="let apt of apartmentList" value={{apt.Number}}>{{apt.Number}} {{apt.Name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Mobile Number</ion-label>
+          <ion-input   type="Number" formControlName="fctl_mobile_no" required>
+          </ion-input>
+        </ion-item>
+        <!-- <ion-label *ngIf="(!mobileNo.valid) && (mobileNo.dirty || submitAttempt)">
+          <p>Phone Number should be 10 digits</p>
+        </ion-label>  -->
+  
+        <ion-item>
+          <ion-label position="floating">User Name</ion-label>
+          <ion-input type="text" formControlName="fctl_occupant_name" clearInput required>
+          </ion-input>
+        </ion-item>
+        <!-- <ion-label *ngIf="(!userName.valid) && (userName.dirty || submitAttempt)">
+            <p>User name 5 to 20 chars</p>
+        </ion-label>  -->
+  
+  
+        <ion-item>
+          <ion-label position="floating">Message</ion-label>
+          <ion-textarea maxlength=256 minlength=10 clearOnEdit formControlName="fctl_message" (ionFocus)="clearMessage()"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Broadcast Message To All ?</ion-label>
+            <ion-toggle checked=false (ionChange)="setFieldsForBroadcast($event)" formControlName="fctl_broadcast_message_all" color="primary"></ion-toggle>
+        </ion-item>
+  
+      </ion-list>
+      <ion-button [disabled]="!sendMessageFormGroup.valid" (click)="sendMessage()" expand="block" color="secondary">
+        Send Message
+      </ion-button>
+      <ion-label>
+        <p>{{sendMessageStatus}}</p>
+      </ion-label>
+    </form>
+  </ion-content>

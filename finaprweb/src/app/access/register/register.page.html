@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Register
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <form [formGroup]="registerFormGroup">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Mobile Number</ion-label>
+        <ion-input type="text" formControlName="fctl_mobile_no" required>
+        </ion-input>
+      </ion-item>
+      <ion-label *ngIf="(!mobileNo.valid) && (mobileNo.dirty || submitAttempt)">
+        <p>Phone Number should be 10 digits</p>
+      </ion-label> 
+
+      <ion-item>
+        <ion-label position="floating">User Name</ion-label>
+        <ion-input type="text" formControlName="fctl_user_name" clearInput required>
+        </ion-input>
+      </ion-item>
+      <ion-label *ngIf="(!userName.valid) && (userName.dirty || submitAttempt)">
+          <p>User name 5 to 20 chars</p>
+      </ion-label> 
+      <ion-item class="ion-no-padding">
+        <ion-select interface="popover" placeholder="Apartment Number" formControlName="fctl_apart_no">
+            <ion-select-option  *ngFor="let apt of apartmentList" value={{apt.Number}}>{{apt.Number}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password" clearOnEdit formControlName="fctl_password" (ionFocus)="clearPassword()"></ion-input>
+      </ion-item>
+      <ion-label *ngIf="(!password.valid) && (password.dirty || submitAttempt)">
+          <p>Password should be 8 to 64 chars</p>
+      </ion-label> 
+
+      <ion-item>
+        <ion-label position="floating">Confirm Password</ion-label>
+        <ion-input type="password" clearOnEdit formControlName="fctl_cnfm_password" (ionFocus)="clearPassword()"></ion-input>
+      </ion-item>
+      <ion-label *ngIf="(!cnfm_password.valid) && (cnfm_password.dirty || submitAttempt)">
+          <p>Password should be 8 to 64 chars</p>
+      </ion-label> 
+      <ion-label *ngIf="passwordsDontMatch">
+        <p>Password and Confirm Password Fields Don't match</p>
+      </ion-label>
+
+    </ion-list>
+    <ion-button [disabled]="!registerFormGroup.valid" (click)="register(registerFormGroup)" expand="block" color="secondary">
+      Register
+    </ion-button>
+    <ion-label>
+      <p>{{registerStatus}}</p>
+    </ion-label>
+  </form>
+</ion-content>

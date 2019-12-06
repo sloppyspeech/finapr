@@ -1,0 +1,85 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Add Apartment Expense
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <form [formGroup]="addExpenseFormGroup">
+      <ion-list>
+            <ion-item class="ion-no-padding">
+                <ion-select interface="popover" placeholder="Expense Paid By" formControlName="fctl_exp_paid_by">
+                    <ion-select-option style="max-width:90%;" *ngFor="let apt of apartmentList" value={{apt.MobileNo}}>{{apt.Number}}({{apt.Occupant}})</ion-select-option>
+                </ion-select>
+            </ion-item>
+
+        <!-- <ion-label *ngIf="(!mobileNo.valid) && (mobileNo.dirty || submitAttempt)">
+          <p>Phone Number should be 10 digits</p>
+        </ion-label>  -->
+        <ion-item>
+            <ion-label position="floating">Expense Date</ion-label>
+            <ion-datetime formControlName="fctl_exp_date" display-format="YYYY-MM-DD" placeholder="Payment Date">
+            </ion-datetime>
+          </ion-item>
+          <!-- <ion-label *ngIf="(!password.valid) && (password.dirty || submitAttempt)">
+              <p>Password should be 8 to 64 chars</p>
+          </ion-label>  -->
+
+        <ion-item>
+          <ion-label position="floating">Expense Amount</ion-label>
+          <ion-input type="number" formControlName="fctl_exp_amount" clearInput required>
+          </ion-input>
+        </ion-item>
+        <!-- <ion-label *ngIf="(!userName.valid) && (userName.dirty || submitAttempt)">
+            <p>User name 5 to 20 chars</p>
+        </ion-label>  -->
+ 
+
+
+        <!-- <ion-item>
+          <ion-label position="floating">Purpose</ion-label>
+          <ion-input type="text" clearOnEdit formControlName="fctl_exp_purpose" ></ion-input>
+        </ion-item> -->
+
+        <ion-item class="ion-no-padding">
+          <ion-select interface="popover" placeholder="Purpose" formControlName="fctl_exp_purpose">
+              <ion-select-option style="max-width:90%;" *ngFor="let purpose of expPurposes" value={{purpose}}>{{purpose}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- <ion-label *ngIf="(!password.valid) && (password.dirty || submitAttempt)">
+            <p>Password should be 8 to 64 chars</p>
+        </ion-label>  -->
+        <ion-item>
+          <ion-label position="floating">Paid To</ion-label>
+          <ion-input type="text" clearOnEdit formControlName="fctl_exp_paid_to" ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="floating">Transaction Details</ion-label>
+          <ion-input type="text" clearOnEdit formControlName="fctl_exp_trans_detail" ></ion-input>
+        </ion-item>
+
+        <!-- <ion-label *ngIf="(!cnfm_password.valid) && (cnfm_password.dirty || submitAttempt)">
+            <p>Password should be 8 to 64 chars</p>
+        </ion-label> 
+        <ion-label *ngIf="passwordsDontMatch">
+          <p>Password and Confirm Password Fields Don't match</p>
+        </ion-label> -->
+  
+      </ion-list>
+      <ion-button [disabled]="!addExpenseFormGroup.valid" (click)="addExpense(addExpenseFormGroup)" expand="block" color="secondary">
+        Add Expense
+      </ion-button>
+      <ion-label>
+        <p>{{addExpenseTranStatus}}</p>
+      </ion-label>
+
+    </form>
+  </ion-content>
+

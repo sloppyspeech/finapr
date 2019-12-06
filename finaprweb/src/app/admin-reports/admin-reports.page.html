@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Admin Reports
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="adminReportsFG">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Start Date</ion-label>
+        <ion-datetime formControlName="fctl_start_date" display-format="DD-MMM-YYYY" placeholder="Start Date">
+        </ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">End Date</ion-label>
+        <ion-datetime formControlName="fctl_end_date" display-format="DD-MMM-YYYY" placeholder="End Date">
+        </ion-datetime>
+      </ion-item>
+
+      <ion-radio-group>
+        <ion-item>
+          <!-- <ion-note slot="start">On</ion-note> -->
+          <ion-label>Cash Flow Report</ion-label>
+          <ion-radio slot="end" (click)="showm('cashFlow');" value="CashFlow"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <!-- <ion-note slot="start">Off</ion-note> -->
+          <ion-label>Paid By Each Apartment Report</ion-label>
+          <ion-radio slot="end" (click)="showm('paidByEachApartment');" value="PaidByEachApartment" checked></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+    <!-- <ion-button [disabled]="!addExpenseFormGroup.valid" (click)="addExpense(addExpenseFormGroup)" expand="block" color="secondary"> -->
+    <ion-button expand="block" color="secondary">
+      Get Report
+    </ion-button>
+    <ion-label *ngIf="adminReportsFG.errors">
+      <p style="color: crimson;">{{adminReportsFG.errors['msg']}}</p>
+    </ion-label>
+  </form>
+</ion-content>

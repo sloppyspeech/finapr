@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Apartment Expenses
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid fixed>
+
+    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+      <ion-fab-button color="secondary" (click)="getAllExpenses()">
+        <ion-icon name="refresh"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="secondary" (click)="goToAddExpense()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+
+    <form [formGroup]="ExpSearchFormGroup">
+
+      <ion-item class="ion-no-padding">
+        <ion-datetime formControlName="fctl_start_date" display-format="DD-MMM-YYYY" placeholder="Start Date">
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item class="ion-no-padding">
+        <ion-datetime formControlName="fctl_end_date" display-format="DD-MMM-YYYY" placeholder="End Date">
+        </ion-datetime>
+      </ion-item>
+
+      <ion-item class="ion-no-padding">
+        <ion-select interface="popover" placeholder="Search Type" (ionChange)='SrchOptionSel($event)'>
+          <ion-select-option value="Purpose" selected-text>Purpose</ion-select-option>
+          <ion-select-option value="Paid To">Paid To</ion-select-option>
+          <ion-select-option value="Transaction Details">Transaction Details</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item *ngIf="showTextSrchBox">
+        <ion-input type="text" placeholder={{srchItemPlaceHolder}} formControlName="fctl_text_srch_val"
+          (ionFocus)="clearSrchText()"></ion-input>
+      </ion-item>
+
+      <ion-button (click)="searchExpense()" expand="block" color="secondary">
+        Search
+      </ion-button>
+      <ion-button (click)="exportToExcel()" expand="block" color="danger">
+        Export2Excel
+      </ion-button>
+
+    </form>
+
+    <ion-list *ngFor="let a of allExpenses">
+      <ion-row>
+        <ion-col col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3>
+          <ion-item>
+            <ion-label>
+              <h1>{{a.ApartmentExpenses.Amount |currency:'INR'}}</h1>
+              <h2>As {{a.ApartmentExpenses.Purpose}}</h2>
+              <h2>Paid To {{a.ApartmentExpenses.PaidTo}}</h2>
+              <p>{{a.ApartmentExpenses.TransactionDetail}}</p>
+              <p>{{a.ApartmentExpenses.Date | date:'mediumDate'}}</p>
+            </ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </ion-grid>
+
+</ion-content>

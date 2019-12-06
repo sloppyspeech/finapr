@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Dashboard
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <form [formGroup]="DashboardSrchFG">
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Start Date</ion-label>
+          <ion-datetime formControlName="fctl_start_date" display-format="YYYY-MM-DD" placeholder="Start Date">
+          </ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">End Date</ion-label>
+          <ion-datetime formControlName="fctl_end_date" display-format="YYYY-MM-DD" placeholder="End Date">
+          </ion-datetime>
+        </ion-item>
+      </ion-list>
+      <ion-button [disabled]="!DashboardSrchFG.valid" (click)="getVisual(DashboardSrchFG)" expand="block"
+        color="secondary">
+        Get Visuals
+      </ion-button>
+      <ion-label *ngIf="DashboardSrchFG.errors">
+        <p>{{DashboardSrchFG.errors['msg']}}</p>
+      </ion-label>
+    </form>
+
+  
+    <ion-card>
+        <ion-card-header style="color:black;">
+          Expense To Income
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #ExpenseToIncomeCanvas></canvas>
+        </ion-card-content>
+      </ion-card>
+    
+    <ion-card>
+      <ion-card-header style="color:black;">
+        Expenditure By Month
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #barCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- <ion-card>
+      <ion-card-header>
+        Expenditure By Purpose
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #doughnutCanvas></canvas>
+      </ion-card-content>
+    </ion-card> -->
+
+    <ion-card>
+      <ion-card-header style="color:black;">
+        Expenditure By Purpose
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #horizontalBarCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+</ion-content>
